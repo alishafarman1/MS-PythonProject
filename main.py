@@ -37,4 +37,16 @@ def parse_compatibility():
     return compatibility_stats
 
 
-print(parse_compatibility())
+def parse_dates():
+    date_stats = []
+    tags = \
+        pageTree.select('div[data-test-selector="search-filters"] > div:nth-child(1) > div:nth-child(10) > div > div')[0]
+    prices = tags.select("label + span")
+    names = tags.select("label > span:nth-child(2)")
+    for index in range(len(tags)):
+        date_stats.append(
+            (names[index].get_text(strip=True).capitalize(), int(prices[index].get_text().replace(",", ""))))
+    return date_stats
+
+
+print(parse_dates())
